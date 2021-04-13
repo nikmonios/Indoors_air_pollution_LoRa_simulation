@@ -1,0 +1,36 @@
+scenario 1 - GW at centre of building
+
+packets sent: 201600
+received: 188487
+interfered: 13046
+no more receivers: 67
+under sensitivity: 0
+lost because TX: 0 
+
+packet delivery rate = received / packets sent = 93.49%
+
+/******************************************/
+
+scenario 2 - GW at the top of building
+
+packets sent: 201600
+received: 188382
+interfered: 13151
+no more receivers: 67
+under sensitivity: 0
+lost because TX: 0 
+
+packet delivery rate = received / packets sent = 93.44%
+
+/******************************************/
+
+scenario 3 - GW at the top of next building
+
+packets sent: 201600
+received: 185661
+interfered: 15872
+no more receivers: 67
+under sensitivity: 0
+lost because TX: 0 
+
+packet delivery rate = received / packets sent = 92.09%
