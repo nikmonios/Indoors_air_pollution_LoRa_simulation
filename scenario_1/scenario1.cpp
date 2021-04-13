@@ -38,8 +38,6 @@
 #include <time.h>
 #include "ns3/netanim-module.h"
 
-//#include "ns3/delay-jitter-estimation.h"
-
 using namespace ns3;
 using namespace lorawan;
 
@@ -48,7 +46,7 @@ NS_LOG_COMPONENT_DEFINE ("ComplexLorawanNetworkExample");
 // Network settings
 int nDevices = 700;  //100 per floor, 7 floors
 int nGateways = 1;
-double radius = 1000; // -5000 to +5000
+double radius = 1000; // not used in this script
 double simulationTime = 3600 * 24; //=24 hours in seconds
 
 // Channel model
@@ -57,21 +55,15 @@ int appPeriodSeconds = 0;
 
 // Output control
 bool print = true;
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*static void CourseChange (std::string foo, Ptr<const MobilityModel> mobility)
-{
-  Vector pos = mobility->GetPosition ();
-  Vector vel = mobility->GetVelocity ();
-  std::cout << Simulator::Now () << ", model=" << mobility << ", POS: x=" << pos.x << ", y=" << pos.y
-            << ", z=" << pos.z << "; VEL:" << vel.x << ", y=" << vel.y
-            << ", z=" << vel.z <<std::endl;
-}*/
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+private functions here
+*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-int
-main (int argc, char *argv[])
+int main (int argc, char *argv[])
 {
 
   CommandLine cmd;
@@ -95,44 +87,11 @@ main (int argc, char *argv[])
   // 4 = SF8
   // 5 = SF7
   int SF = 7;
-  int app_payload = 20; //init LoRa payload.
-
-  if (SF == 12)
-  {
-  	  Config::SetDefault ("ns3::EndDeviceLorawanMac::DataRate", UintegerValue (0));
-  	  /*appPeriodSeconds = 360;
-  	  app_payload = 50;*/
-  }
-  else if (SF == 11)
-  {
-  	  Config::SetDefault ("ns3::EndDeviceLorawanMac::DataRate", UintegerValue (1));
-  	  /*appPeriodSeconds = 180;
-  	  app_payload = 50;*/
-  }
-  else if (SF == 10)
-  {
-  	  Config::SetDefault ("ns3::EndDeviceLorawanMac::DataRate", UintegerValue (2));
-  	  /*appPeriodSeconds = 85;
-  	  app_payload = 50;*/
-  }
-  else if (SF == 9)
-  {
-  	  Config::SetDefault ("ns3::EndDeviceLorawanMac::DataRate", UintegerValue (3));
-  	  /*appPeriodSeconds = 83;
-  	  app_payload = 120;*/
-  }
-  else if (SF == 8)
-  {
-  	  Config::SetDefault ("ns3::EndDeviceLorawanMac::DataRate", UintegerValue (4));
-  	  /*appPeriodSeconds = 72;
-  	  app_payload = 200;*/
-  }
-  else
-  {
-  	  Config::SetDefault ("ns3::EndDeviceLorawanMac::DataRate", UintegerValue (5));
-  	  appPeriodSeconds = 5*60; // 5 minutes in seconds
-  	  /*app_payload = 200;*/
-  }
+  int app_payload = 20; //init LoRa payload
+  
+  Config::SetDefault ("ns3::EndDeviceLorawanMac::DataRate", UintegerValue (5));
+  
+  appPeriodSeconds = 5*60; // 5 minutes in seconds
 
 
   // Set up logging
@@ -449,26 +408,6 @@ main (int argc, char *argv[])
   ////////////////
   // Simulation //
   ////////////////
-
-  //AnimationInterface::SetConstantPosition(endDevices.Get(0), 10,30);
-  /*AnimationInterface anim ("my-animation.xml"); // Mandatory
-  for (uint32_t i = 0; i < endDevices.GetN (); ++i)
-  {
-	anim.UpdateNodeDescription (endDevices.Get (i), "NODE"); // Optional
-	anim.UpdateNodeColor (endDevices.Get (i), 255, 0, 0); // Optional
-  }
-  for (uint32_t i = 0; i < gateways.GetN (); ++i)
-  {
-  	anim.UpdateNodeDescription (gateways.Get (i), "GW"); // Optional
-  	anim.UpdateNodeColor (gateways.Get (i), 255, 255, 94); // Optional
-  }
-  anim.EnablePacketMetadata();
-  anim.GetTracePktCount();
-*/
-
-  //Config::Connect ("/NodeList/*/$ns3::MobilityModel/CourseChange",
-  //                   MakeCallback (&CourseChange));
-
 
   Simulator::Stop (appStopTime);// + Hours (1));
 
